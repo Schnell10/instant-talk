@@ -39,10 +39,16 @@ const Gallery = () => {
                   const isDifferentYear =
                      messageDate.getFullYear() !== currentDate.getFullYear()
 
+                  // Vérifie si la date de création est dans les trois jours précédents
+                  const threeDaysAgo = new Date()
+                  threeDaysAgo.setDate(currentDate.getDate() - 3)
+                  const isWithinThreeDays =
+                     messageDate >= threeDaysAgo && messageDate < currentDate
+
                   let formattedCreatedAt
 
                   if (isToday) {
-                     // Si le message a été créé aujourd'hui, affichez seulement l'heure
+                     // Si le message a été créé aujourd'hui, on affiche seulement l'heure
                      formattedCreatedAt = messageDate.toLocaleTimeString(
                         'fr-FR',
                         {
@@ -51,38 +57,48 @@ const Gallery = () => {
                            hour12: false,
                         }
                      )
+                  } else if (isWithinThreeDays) {
+                     // Si le message a été créé dans les trois jours précédents, on affiche le jour de la semaine
+                     const daysOfWeek = [
+                        'Dim',
+                        'Lun',
+                        'Mar',
+                        'Mer',
+                        'Jeu',
+                        'Ven',
+                        'Sam',
+                     ]
+                     const dayOfWeek = daysOfWeek[messageDate.getDay()]
+                     const time = messageDate.toLocaleTimeString('fr-FR', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                     })
+                     formattedCreatedAt = `${dayOfWeek}. ${time}`
                   } else {
-                     // Sinon, affichez la date et l'heure complètes
+                     // Sinon, on affiche la date et l'heure complètes
+                     const day = messageDate.getDate() // Récupère le jour
+                     const month = messageDate.toLocaleString('fr-FR', {
+                        month: 'long',
+                     }) // On récupère le mois en toutes lettres
+                     const time = messageDate.toLocaleTimeString('fr-FR', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                     }) // On récupère l'heure au format 24 heures
+
                      if (isDifferentYear) {
-                        formattedCreatedAt = messageDate.toLocaleString(
-                           'fr-FR',
-                           {
-                              year: 'numeric',
-                              month: '2-digit',
-                              day: '2-digit',
-                              hour: '2-digit',
-                              minute: '2-digit',
-                              hour12: false,
-                           }
-                        )
+                        const year = messageDate.getFullYear() // Récupère l'année
+                        formattedCreatedAt = `${day} ${month} ${year}, ${time}` // Formate la date avec le jour, le mois, l'année et l'heure
                      } else {
-                        formattedCreatedAt = messageDate.toLocaleString(
-                           'fr-FR',
-                           {
-                              month: '2-digit',
-                              day: '2-digit',
-                              hour: '2-digit',
-                              minute: '2-digit',
-                              hour12: false,
-                           }
-                        )
+                        formattedCreatedAt = `${day} ${month}, ${time}` // Formate la date avec le jour, le mois et l'heure
                      }
                   }
 
-                  // Remplacez la date de création par la date et l'heure formatées
+                  // On remplace la date de création par la date et l'heure formatées
                   return { ...message, createdAt: formattedCreatedAt }
                } else {
-                  // Si le message n'a pas de date de création, retournez-le tel quel
+                  // Si le message n'a pas de date de création, on le retourne tel quel
                   return message
                }
             })
@@ -133,13 +149,23 @@ const Gallery = () => {
          {messages.map((message) => (
             <div
                className={
-                  userId === message.userId ? 'my-message' : 'other-message'
+                  userId === message.userId
+                     ? 'my-div-message'
+                     : 'other-div-message'
                }
                key={message._id}
             >
-               <p>{message.message}</p>
-               <p>{message.createdAt}</p>
-               <p>{message.username}</p>
+               <p className="date">{message.createdAt}</p>
+               <p
+                  className={
+                     userId === message.userId ? 'my-message' : 'other-message'
+                  }
+               >
+                  {message.message}
+               </p>
+               {userId !== message.userId && (
+                  <p className="username">{message.username}</p>
+               )}
             </div>
          ))}
       </div>

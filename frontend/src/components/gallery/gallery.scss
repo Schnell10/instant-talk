@@ -1,21 +1,51 @@
+@import '../../styles/variables.scss';
+
 .gallery {
    display: flex;
    flex-direction: column;
-   align-items: flex-start;
+   width: 100%;
 
    div {
-      width: 100%;
-   }
-
-   .other-message {
       display: flex;
       flex-direction: column;
+      position: relative;
+   }
+
+   .other-div-message {
       align-items: flex-start;
+
+      .other-message {
+         margin: 10px;
+         padding: 10px;
+         border-radius: 15px;
+         font-size: 14px;
+         background-color: $grey-color;
+      }
    }
 
-   .my-message {
-      display: flex;
-      flex-direction: column;
+   .my-div-message {
       align-items: flex-end;
+
+      .my-message {
+         margin: 10px;
+         padding: 10px;
+         border-radius: 15px;
+         font-size: 14px;
+         background-color: $blue-color;
+         color: $white-color;
+      }
+   }
+
+   .date {
+      align-self: center; // Centre la date horizontalement
+      margin: 0 auto 5px auto; // Ajoute une marge en bas pour espacer la date du message
+      font-size: 12px; // Ajuste la taille de la police
+      color: #999; // Couleur grise pour la date
+   }
+
+   .username {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px; // Ajoute une marge en haut pour espacer le nom d'utilisateur du message
    }
 }

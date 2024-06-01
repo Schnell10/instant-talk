@@ -81,16 +81,16 @@ io.on('connection', (socket) => {
          //On extrait l'Id du token
          const userId = decodedToken.userId
 
-         // Utiliser l'ID de l'utilisateur pour récupérer les données nécessaires
+         // On utilise l'ID de l'utilisateur pour récupérer les données nécessaires
          const user = await User.findById(userId)
 
          // Fonction pour générer un identifiant unique
          const generateUniqueId = () => {
             return uuidv4()
          }
-         const messageId = generateUniqueId() // À implémenter
+         const messageId = generateUniqueId()
 
-         // Créer un objet contenant les données à diffuser avec la date actuelle
+         // On créer un objet contenant les données à diffuser avec la date actuelle
          const messageData = {
             _id: messageId,
             message: data.message,
@@ -114,5 +114,5 @@ io.on('connection', (socket) => {
    })
 })
 
-//On démarre le serrver en écoutant sur le port configuré
+//On démarre le server en écoutant sur le port configuré
 server.listen(port)

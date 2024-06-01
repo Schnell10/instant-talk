@@ -5,7 +5,7 @@ exports.createMessage = async (req, res, next) => {
    try {
       const messageObject = req.body
       delete messageObject.userId
-      // Récupérer l'utilisateur associé à l'ID de l'auteur du message
+      // Récupére l'utilisateur associé à l'ID de l'auteur du message
       const user = await User.findById(req.auth.userId)
 
       const message = new Message({

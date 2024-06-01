@@ -9,13 +9,13 @@ exports.signup = async (req, res, next) => {
 
       console.log('Signup request received:', { email, username })
 
-      // Vérifiez si un utilisateur avec le même email existe déjà
+      // Vérifie si un utilisateur avec le même email existe déjà
       const existingEmailUser = await User.findOne({ email })
       if (existingEmailUser) {
          return res.status(401).json({ message: 'Email already exists' })
       }
 
-      // Vérifiez si un utilisateur avec le même nom d'utilisateur existe déjà
+      // Vérifie si un utilisateur avec le même nom d'utilisateur existe déjà
       const existingUsernameUser = await User.findOne({ username })
       if (existingUsernameUser) {
          return res.status(401).json({ message: 'Username already exists' })

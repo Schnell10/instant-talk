@@ -40,7 +40,6 @@ const Login = () => {
             }),
          })
 
-         // Vérifier si la réponse est OK
          if (!response.ok) {
             const errorData = await response.json()
             const errorMessage =
@@ -53,7 +52,7 @@ const Login = () => {
          const data = await response.json()
          if (!data.token) {
             setError('Invalid username or password. Please try again.')
-            return // Arrêter ici si les identifiants sont incorrects
+            return // Arrêt ici si les identifiants sont incorrects
          }
 
          sessionStorage.setItem('token', data.token)
@@ -81,7 +80,6 @@ const Login = () => {
             }),
          })
 
-         // Vérifier si la réponse est OK
          if (!response.ok) {
             const errorData = await response.json()
             setError(
@@ -92,7 +90,7 @@ const Login = () => {
          const data = await response.json()
          if (!data.token) {
             setError('problem met at inscription')
-            return // Arrêter ici
+            return // Arrêt ici
          }
 
          sessionStorage.setItem('token', data.token)
@@ -110,7 +108,7 @@ const Login = () => {
       setError('')
    }
 
-   // Si le token existe, redirigez vers la page home
+   // Si le token existe, on est redirigé vers la page home
    const token = sessionStorage.getItem('token')
    if (token !== null) {
       return <Navigate to="/" replace={true} />
@@ -119,10 +117,8 @@ const Login = () => {
    // Rendu du composant
    return (
       <div className="login-page">
-         {/* Titre dynamique en fonction du formulaire actuellement affiché */}
          <h2>{showCreateAccount ? 'Create an Account' : 'Login'}</h2>
 
-         {/* Formulaire de connexion ou de création de compte */}
          <form
             onSubmit={showCreateAccount ? handleCreateAccount : handleSubmit}
          >
@@ -178,7 +174,6 @@ const Login = () => {
             </button>
          </form>
 
-         {/* Afficher le message d'erreur s'il y en a un */}
          {error && <p className="error-message">{error}</p>}
 
          {/* Bouton pour afficher/cacher le formulaire de création de compte */}
