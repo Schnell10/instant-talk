@@ -1,0 +1,63 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.app-container {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+
+   header {
+      background-color: $main-color;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 30px;
+
+      h1 {
+         font-size: 38px;
+         color: $white-color;
+
+         @include mobile() {
+            font-size: 22px;
+         }
+      }
+
+      button {
+         border: none;
+         background-color: #96c2db;
+         color: $white-color;
+         font-size: 22px;
+         font-weight: bold;
+         font-family: 'Arial', sans-serif;
+         transition: text-shadow 0.3s ease;
+
+         @include mobile() {
+            font-size: 18px;
+         }
+
+         &:hover {
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+         }
+      }
+   }
+
+   .main-content {
+      flex: 1;
+   }
+
+   footer {
+      background-color: $main-color;
+      text-align: center;
+      padding: 10px 0;
+
+      p {
+         color: $white-color;
+
+         @include mobile() {
+            font-size: 12px;
+         }
+      }
+   }
+}

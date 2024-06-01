@@ -1,0 +1,22 @@
+@import './variables.scss';
+
+* {
+   font-family: 'Montserrat', sans-serif;
+   margin: 0;
+   padding: 0;
+}
+h1,
+h2,
+h3,
+p,
+button,
+input,
+label,
+select,
+option {
+   color: $text-color;
+}
+
+button:hover {
+   cursor: pointer;
+}

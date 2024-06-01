@@ -1,0 +1,48 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.home-page {
+   padding: 30px;
+   text-align: center;
+
+   @include mobile() {
+      padding: 25px 10px;
+   }
+
+   .title-filter {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      margin: 0 30px 5px 30px;
+
+      @include mobile() {
+         gap: 10px;
+      }
+
+      h2 {
+         font-size: 30px;
+         color: $text-color;
+         opacity: 0.9;
+         margin-bottom: 10px;
+
+         @include mobile() {
+            font-size: 25px;
+         }
+      }
+
+      .button-add-task {
+         background-color: $grey-color;
+         color: $text-color;
+         padding: 4px;
+         border: 1px solid $main-color;
+         border-radius: 3px;
+         transition: background-color 0.2s ease-out, color 0.2s ease-out;
+
+         &:hover {
+            background-color: $main-color;
+            color: $white-color;
+         }
+      }
+   }
+}
