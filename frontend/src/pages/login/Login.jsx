@@ -28,16 +28,18 @@ const Login = () => {
       event.preventDefault()
 
       try {
+         let requestBody = {
+            // On utilise soit l'username, soit l'email, selon ce qui est saisi par l'user
+            ...(username ? { username } : { email }),
+            password,
+         }
          // Appel API pour la connexion
          const response = await fetch('http://localhost:4000/api/auth/login', {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-               username,
-               password,
-            }),
+            body: JSON.stringify(requestBody),
          })
 
          if (!response.ok) {
@@ -51,12 +53,12 @@ const Login = () => {
          // Traitement de la réponse
          const data = await response.json()
          if (!data.token) {
-            setError('Invalid username or password. Please try again.')
+            setError('Invalid username, email or password. Please try again.')
             return // Arrêt ici si les identifiants sont incorrects
          }
 
          sessionStorage.setItem('token', data.token)
-         navigate('/')
+         navigate('/#chat-form')
       } catch (error) {
          setError('An error occurred. Please try again later.')
       }
@@ -94,7 +96,7 @@ const Login = () => {
          }
 
          sessionStorage.setItem('token', data.token)
-         navigate('/')
+         navigate('/#chat-form')
 
          console.log('compte ajouté avec succès')
          setError('')
@@ -135,17 +137,30 @@ const Login = () => {
                   />
                </label>
             )}
-            <label>
-               Username:
-               {/* Champ de saisie pour le nom utilisateur avec gestion de l'état */}
-               <input
-                  type="text"
-                  placeholder="Enter your user name"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onClick={resetError}
-               />
-            </label>
+            {showCreateAccount ? (
+               <label>
+                  Username:
+                  {/* Champ de saisie pour le nom utilisateur avec gestion de l'état */}
+                  <input
+                     type="text"
+                     placeholder="Enter your user name"
+                     value={username}
+                     onChange={(e) => setUsername(e.target.value)}
+                     onClick={resetError}
+                  />
+               </label>
+            ) : (
+               <label>
+                  Email or Username:
+                  <input
+                     type="text"
+                     placeholder="Enter your email or username"
+                     value={username}
+                     onChange={(e) => setUsername(e.target.value)}
+                     onClick={resetError}
+                  />
+               </label>
+            )}
             <label>
                Password:
                {/* Champ de saisie pour le mot de passe avec gestion de l'état */}

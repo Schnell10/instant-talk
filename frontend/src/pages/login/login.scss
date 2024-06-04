@@ -52,7 +52,7 @@
          &:disabled {
             background: $grey-color;
             cursor: not-allowed; // Optionnel : changer le curseur lorsque le bouton est désactivé
-            color: $text-color;
+            color: $black-color;
          }
       }
    }
@@ -67,19 +67,20 @@
    }
 
    .create-account {
-      background-color: $grey-color;
-      color: $text-color;
-      padding: 4px;
-      border: 1px solid $main-color;
-      border-radius: 3px;
-      transition: background-color 0.2s ease-out, color 0.2s ease-out;
+      background: $main-color;
+      color: $white-color;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
 
       @include mobile() {
-         font-size: 12px;
+         padding: 8px 16px;
       }
 
       &:hover {
-         background-color: $main-color;
+         background-color: $blue-color;
          color: $white-color;
       }
    }

@@ -7,7 +7,6 @@ const messageControllers = require('../controllers/message')
 router.post('/', auth, messageControllers.createMessage)
 
 router.get('/', auth, messageControllers.getAllMessages)
-
-router.delete('/:id', auth, messageControllers.deleteMessage)
+router.get('/users', messageControllers.getAllUsers)
 
 module.exports = router

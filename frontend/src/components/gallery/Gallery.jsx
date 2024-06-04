@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './gallery.scss'
 import socketIOClient from 'socket.io-client'
 
-const Gallery = () => {
+const Gallery = ({ setGalleryIsLoaded }) => {
    const [messages, setMessages] = useState([])
    const [userId, setUserId] = useState('')
 
@@ -104,6 +104,7 @@ const Gallery = () => {
             })
             setMessages(formattedData)
             setUserId(userId)
+            setGalleryIsLoaded(true) // Indique à Home que Gallery est chargé
          }
       } catch (error) {
          console.error('Erreur de récupération des données:', error)
@@ -136,6 +137,7 @@ const Gallery = () => {
          const formattedMessage = { ...message, createdAt: formattedCreatedAt }
 
          setMessages((prevMessages) => [...prevMessages, formattedMessage])
+         setGalleryIsLoaded(true) // Indique à Home que Gallery est chargé
       })
 
       return () => {

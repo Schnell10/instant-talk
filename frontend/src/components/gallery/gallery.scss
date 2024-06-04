@@ -26,6 +26,14 @@
    .my-div-message {
       align-items: flex-end;
 
+      p {
+         max-width: 60%;
+         word-wrap: break-word; // Permet de casser les mots longs
+         word-break: break-word; // Assure que les mots seront cassés au besoin
+         white-space: pre-wrap; // Respecte les retours à la ligne dans le texte
+         text-align: left;
+      }
+
       .my-message {
          margin: 10px;
          padding: 10px;

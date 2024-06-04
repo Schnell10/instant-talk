@@ -44,22 +44,8 @@ exports.getAllMessages = (req, res, next) => {
       .catch((error) => res.status(400).json({ error }))
 }
 
-exports.deleteMessage = async (req, res, next) => {
-   try {
-      const message = await Message.findOne({ _id: req.params.id })
-
-      if (!message) {
-         return res.status(404).json({ message: 'Message non trouvée' })
-      }
-
-      if (message.userId != req.auth.userId) {
-         return res.status(403).json({ message: 'Unauthorized user' })
-      }
-
-      await message.deleteOne({ _id: req.params.id })
-      return res.status(200).json({ message: 'Message supprimée !' })
-   } catch (error) {
-      console.error('Error deleting message:', error)
-      return res.status(500).json({ error })
-   }
+exports.getAllUsers = (req, res, next) => {
+   User.find({}, 'username') // Utilisation de la projection pour ne récupérer que le champ 'username'
+      .then((users) => res.status(200).json({ users })) // Assurez-vous que 'users' est un tableau de documents avec uniquement les usernames
+      .catch((error) => res.status(400).json({ error }))
 }

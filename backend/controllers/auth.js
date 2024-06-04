@@ -54,17 +54,19 @@ exports.signup = async (req, res, next) => {
    }
 }
 exports.login = (req, res, next) => {
-   //On récupére le secret token de .env
+   //On récupère le secret token de .env
    const secretToken = process.env.SECRET_TOKEN
 
-   // Recherche de l'utilisateur dans la base de données par son adresse e-mail
-   User.findOne({ username: req.body.username })
+   // Recherche de l'utilisateur dans la base de données par son adresse e-mail ou son nom d'utilisateur
+   User.findOne({
+      $or: [{ username: req.body.username }, { email: req.body.username }],
+   })
       .then((user) => {
-         //Si aucun utilisateur correspond on renvoit le msg d'erreur
+         //Si aucun utilisateur correspond, on renvoie le message d'erreur
          if (!user) {
             return res
                .status(401)
-               .json({ message: '"username not found in the database"' })
+               .json({ message: 'Username or email not found in the database' })
          }
          //On se sert de bcrypt pour comparer le mdp de la requête avec le mdp hashé dans la base de donnée
          bcrypt
@@ -74,9 +76,9 @@ exports.login = (req, res, next) => {
                   return res.status(401).json({ message: 'Incorrect password' })
                }
                res.status(200).json({
-                  //On renvoit l'identifiant de l'utilisateur et le JWT
+                  //On renvoie l'identifiant de l'utilisateur et le JWT
                   userId: user._id,
-                  //On remplie le jwt avec l'userId, le secretToken
+                  //On remplit le JWT avec l'userId et le secretToken
                   token: jwt.sign({ userId: user._id }, secretToken, {
                      expiresIn: '24h',
                   }),
