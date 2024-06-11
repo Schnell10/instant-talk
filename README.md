@@ -26,3 +26,7 @@
 - **Implémentation de l'authentification des utilisateurs.**
 - **Gestion de la redirection vers le salon commun après la connexion.**
 - **Développement de la fonctionnalité de discussion en temps réel avec Socket.io.**
+
+## Lien vers le site
+
+[Accédez au site ici](https://instant-talk.vercel.app/)
