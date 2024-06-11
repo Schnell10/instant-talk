@@ -12,17 +12,22 @@ const ChatForm = () => {
       try {
          if (message.trim() !== '') {
             // Vérifie si le message n'est pas vide après suppression des espaces blancs
-            const reponse = await fetch('http://localhost:4000/api/message', {
-               method: 'POST',
-               headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${token}`,
-               },
-               body: JSON.stringify({ message }),
-            })
+            const reponse = await fetch(
+               'https://instant-talk.onrender.com/api/message',
+               {
+                  method: 'POST',
+                  headers: {
+                     'Content-Type': 'application/json',
+                     Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({ message }),
+               }
+            )
             if (reponse.ok) {
                // Connexion à Socket.IO en transmettant le token
-               const socket = socketIOClient('http://localhost:4000')
+               const socket = socketIOClient(
+                  'https://instant-talk.onrender.com'
+               )
                socket.emit('sendMessage', { message, token })
                setMessage('')
             } else {

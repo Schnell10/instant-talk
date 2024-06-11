@@ -9,13 +9,16 @@ const Gallery = ({ setGalleryIsLoaded }) => {
    const getAllMessages = async () => {
       const token = sessionStorage.getItem('token')
       try {
-         const reponse = await fetch('http://localhost:4000/api/message', {
-            method: 'GET',
-            headers: {
-               'Content-Type': 'application/json',
-               Authorization: `Bearer ${token}`,
-            },
-         })
+         const reponse = await fetch(
+            'https://instant-talk.onrender.com/api/message',
+            {
+               method: 'GET',
+               headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+               },
+            }
+         )
 
          if (reponse.ok) {
             const data = await reponse.json()
@@ -116,7 +119,7 @@ const Gallery = ({ setGalleryIsLoaded }) => {
 
    useEffect(() => {
       console.log('Attempting to establish connection with Socket.io server...')
-      const socket = socketIOClient('http://localhost:4000')
+      const socket = socketIOClient('https://instant-talk.onrender.com')
 
       socket.on('connect', () => {
          console.log('Connected to Socket.io server')

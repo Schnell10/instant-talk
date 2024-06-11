@@ -9,7 +9,7 @@ const Members = () => {
          const token = sessionStorage.getItem('token')
          try {
             const response = await fetch(
-               'http://localhost:4000/api/message/users',
+               'https://instant-talk.onrender.com/api/message/users',
                {
                   method: 'GET',
                   headers: {
