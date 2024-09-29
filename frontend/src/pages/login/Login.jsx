@@ -122,7 +122,6 @@ const Login = () => {
       return <Navigate to="/" replace={true} />
    }
 
-   // Rendu du composant
    return (
       <div className="login-page">
          <h2>{showCreateAccount ? 'Create an Account' : 'Login'}</h2>

@@ -59,7 +59,7 @@ exports.login = (req, res, next) => {
 
    // Recherche de l'utilisateur dans la base de données par son adresse e-mail ou son nom d'utilisateur
    User.findOne({
-      $or: [{ username: req.body.username }, { email: req.body.username }],
+      $or: [{ username: req.body.username }, { email: req.body.email }],
    })
       .then((user) => {
          //Si aucun utilisateur correspond, on renvoie le message d'erreur

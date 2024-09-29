@@ -46,6 +46,6 @@ exports.getAllMessages = (req, res, next) => {
 
 exports.getAllUsers = (req, res, next) => {
    User.find({}, 'username') // Utilisation de la projection pour ne récupérer que le champ 'username'
-      .then((users) => res.status(200).json({ users })) // Assurez-vous que 'users' est un tableau de documents avec uniquement les usernames
+      .then((users) => res.status(200).json({ users })) // on s'assure que 'users' est un tableau de documents avec uniquement les usernames
       .catch((error) => res.status(400).json({ error }))
 }
